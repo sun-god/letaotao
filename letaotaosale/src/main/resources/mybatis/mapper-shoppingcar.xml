@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.letaotaosale.dao.ShoppingCarDao">
+		
+		<insert id="add_list_car" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+			insert into t_mall_shoppingcar(
+				sku_mch,
+				sku_jg,
+				tjshl,
+				hj,
+				yh_id,
+				shp_id,
+				sku_id,
+				shp_tp,
+				kcdz
+			)values(
+				#{sku_mch},
+				#{sku_jg},
+				#{tjshl},
+				#{hj},
+				#{yh_id},
+				#{shp_id},
+				#{sku_id},
+				#{shp_tp},
+				#{kcdz}
+			)
+		
+		</insert>
+		
+		<update id="update_list_car">
+			update t_mall_shoppingcar
+			<set>
+				<if test="tjshl!=0">
+					tjshl=#{tjshl},
+				</if>
+				<if test="shfxz!=''and shfxz!=null">
+					shfxz=#{shfxz},
+				</if>
+				<if test="hj">
+					hj=#{hj}
+				</if>
+			</set>
+			where
+				id = #{id}
+		</update>
+		
+		<select id="selct_list_car_from_db" resultType="T_MALL_SHOPPINGCAR">
+		
+		select * from t_mall_shoppingcar
+		where yh_id=#{id}
+		
+		
+		
+		</select>
+
+
+<!-- 	<select id="select_sku_list_by_spu_id" resultType="com.atguigu.letaotaosale.bean.OBJECT_T_MALL_SKU" -->
+<!-- 		parameterType="int"> -->
+<!-- 		select sku.id,spu.id as -->
+<!-- 		shp_id,spu.shp_tp,sku.sku_mch -->
+<!-- 		from -->
+<!-- 		t_mall_sku sku, -->
+<!-- 		t_mall_product spu -->
+<!-- 		where sku.shp_id = spu.Id -->
+<!-- 		and -->
+<!-- 		spu.id = #{spu_id} -->
+<!-- 	</select> -->
+
+<!-- 	<select id="select_sku_detail" parameterType="int" -->
+<!-- 		resultMap="select_sku_detail_map"> -->
+<!-- 		select img.*,sku.*,spu.*,tm.*,sku.id as sku_id,spu.id as -->
+<!-- 		spu_id,tm.id as tm_id,attr.shxm_mch as -->
+<!-- 		attr_name,CONCAT(val.shxzh,val.shxzh_mch) as value_name from -->
+<!-- 		t_mall_sku sku, -->
+<!-- 		t_mall_sku_attr_value -->
+<!-- 		attr_value, -->
+<!-- 		t_mall_attr attr, -->
+<!-- 		t_mall_value val, -->
+<!-- 		t_mall_product spu, -->
+<!-- 		t_mall_trade_mark tm, -->
+<!-- 		t_mall_product_image img -->
+<!-- 		where -->
+<!-- 		sku.Id = -->
+<!-- 		attr_value.sku_id -->
+<!-- 		and -->
+<!-- 		attr_value.shxm_id = attr.Id -->
+<!-- 		and -->
+<!-- 		attr_value.shxzh_id = val.Id -->
+<!-- 		AND -->
+<!-- 		sku.shp_id = spu.Id -->
+<!-- 		and -->
+<!-- 		spu.pp_id = tm.Id -->
+<!-- 		and -->
+<!-- 		spu.id = img.shp_id -->
+<!-- 		and -->
+<!-- 		sku.id = #{sku_id} -->
+<!-- 	</select> -->
+
+<!-- 	<resultMap type="com.atguigu.letaotaosale.bean.OBJECT_T_MALL_SKU" id="select_sku_detail_map" -->
+<!-- 		autoMapping="true"> -->
+<!-- 		<result column="sku_id" property="id" /> -->
+<!-- 		<result column="spu_id" property="shp_id" /> -->
+<!-- 		<association property="spu" -->
+<!-- 			javaType="com.atguigu.letaotaosale.bean.T_MALL_PRODUCT" autoMapping="true"> -->
+<!-- 			<result column="spu_id" property="id" /> -->
+<!-- 		</association> -->
+<!-- 		<association property="tm" -->
+<!-- 			javaType="com.atguigu.letaotaosale.bean.T_MALL_TRADE_MARK" autoMapping="true"> -->
+<!-- 			<result column="tm_id" property="id" /> -->
+<!-- 		</association> -->
+<!-- 		<collection property="list_attr_value_name" -->
+<!-- 			ofType="com.atguigu.letaotaosale.bean.OBJECT_ATTR_VALUE_NAME" autoMapping="true"> -->
+<!-- 		</collection> -->
+<!-- 		<collection property="list_image" -->
+<!-- 			ofType="com.atguigu.letaotaosale.bean.T_MALL_PRODUCT_IMAGE" autoMapping="true"> -->
+<!-- 		</collection> -->
+<!-- 	</resultMap> -->
+
+<!-- 	<select id="select_sku_by_class_2_attr_value" parameterType="Map" -->
+<!-- 		resultMap="select_sku_by_class_2_attr_value_map"> -->
+<!-- 		select sku.*,spu.*,tm.*,sku.id as sku_id,spu.id as -->
+<!-- 		spu_id,tm.id as tm_id from -->
+<!-- 		t_mall_sku sku, -->
+<!-- 		t_mall_sku_attr_value -->
+<!-- 		attr_value, -->
+<!-- 		t_mall_attr attr, -->
+<!-- 		t_mall_value val, -->
+<!-- 		t_mall_product spu, -->
+<!-- 		t_mall_trade_mark tm -->
+<!-- 		where -->
+<!-- 		sku.Id = attr_value.sku_id -->
+<!-- 		and -->
+<!-- 		attr_value.shxm_id = attr.Id -->
+<!-- 		and -->
+<!-- 		attr_value.shxzh_id = val.Id -->
+<!-- 		AND -->
+<!-- 		sku.shp_id = spu.Id -->
+<!-- 		and -->
+<!-- 		spu.pp_id = tm.Id -->
+<!-- 		and -->
+<!-- 		spu.flbh2 = #{class_2_id} -->
+<!-- 		${sql} -->
+<!-- 		${order} -->
+<!-- 	</select> -->
+
+<!-- 	<resultMap type="com.atguigu.letaotaosale.bean.OBJECT_T_MALL_SKU" id="select_sku_by_class_2_attr_value_map" -->
+<!-- 		autoMapping="true"> -->
+<!-- 		<result column="sku_id" property="id" /> -->
+<!-- 		<result column="spu_id" property="shp_id" /> -->
+<!-- 		<association property="spu" -->
+<!-- 			javaType="com.atguigu.letaotaosale.bean.T_MALL_PRODUCT" autoMapping="true"> -->
+<!-- 			<result column="spu_id" property="id" /> -->
+<!-- 		</association> -->
+<!-- 		<association property="tm" -->
+<!-- 			javaType="com.atguigu.letaotaosale.bean.T_MALL_TRADE_MARK" autoMapping="true"> -->
+<!-- 			<result column="tm_id" property="id" /> -->
+<!-- 		</association> -->
+<!-- 	</resultMap> -->
+
+<!-- 	<select id="select_sku_by_class_2" parameterType="int" -->
+<!-- 		resultMap="select_sku_by_class_2_map"> -->
+<!-- 		select sku.*,spu.*,tm.*,sku.id as sku_id,spu.id as -->
+<!-- 		spu_id,tm.id as tm_id from -->
+<!-- 		t_mall_sku sku, -->
+<!-- 		t_mall_product spu, -->
+<!-- 		t_mall_trade_mark tm, -->
+<!-- 		t_mall_tm_class tm_class, -->
+<!-- 		t_mall_class_1 class1 -->
+<!-- 		where -->
+<!-- 		sku.shp_id = spu.Id -->
+<!-- 		and -->
+<!-- 		spu.flbh1 = class1.Id -->
+<!-- 		and -->
+<!-- 		class1.Id = -->
+<!-- 		tm_class.flbh1 -->
+<!-- 		AND -->
+<!-- 		tm.Id = tm_class.pp_id -->
+<!-- 		AND -->
+<!-- 		spu.pp_id = -->
+<!-- 		tm.Id -->
+<!-- 		AND -->
+<!-- 		spu.flbh2 = #{class_2_id} -->
+<!-- 		${order} -->
+<!-- 	</select> -->
+
+<!-- 	<resultMap type="com.atguigu.letaotaosale.bean.OBJECT_T_MALL_SKU" id="select_sku_by_class_2_map" -->
+<!-- 		autoMapping="true"> -->
+<!-- 		<result column="sku_id" property="id" /> -->
+<!-- 		<result column="spu_id" property="shp_id" /> -->
+<!-- 		<association property="spu" -->
+<!-- 			javaType="com.atguigu.letaotaosale.bean.T_MALL_PRODUCT" autoMapping="true"> -->
+<!-- 			<result column="spu_id" property="id" /> -->
+<!-- 		</association> -->
+<!-- 		<association property="tm" -->
+<!-- 			javaType="com.atguigu.letaotaosale.bean.T_MALL_TRADE_MARK" autoMapping="true">  -->
+<!-- 			<result column="tm_id" property="id" /> -->
+<!-- 		</association> -->
+<!-- 	</resultMap> -->
+
+<!-- 	<select id="select_attr_list_by_class_2_id" resultMap="select_attr_list_by_class_2_id_map"> -->
+<!-- 		select attr.*,val.*,attr.id as attr_id ,val.id as value_id from -->
+<!-- 		t_mall_attr attr , t_mall_value val -->
+<!-- 		<where> -->
+<!-- 			attr.id = val.shxm_id -->
+<!-- 			<if test="class_2_id !=0"> -->
+<!-- 				and attr.flbh2=#{class_2_id} -->
+<!-- 			</if> -->
+<!-- 		</where> -->
+<!-- 	</select> -->
+
+<!-- 	<resultMap type="com.atguigu.letaotaosale.bean.OBJECT_T_MALL_ATTR" id="select_attr_list_by_class_2_id_map" -->
+<!-- 		autoMapping="true"> -->
+<!-- 		<result column="attr_id" property="id" /> -->
+<!-- 		<collection property="list_value" ofType="com.atguigu.letaotaosale.bean.T_MALL_VALUE" -->
+<!-- 			autoMapping="true"> -->
+<!-- 			<result column="value_id" property="id" /> -->
+<!-- 		</collection> -->
+<!-- 	</resultMap> -->
+
+</mapper>
